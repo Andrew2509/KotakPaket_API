@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Blokir akses langsung ke file sensitif (.env, composer.json, dll)
+    RewriteRule ^\.env$ - [F,L]
+    RewriteRule ^composer\.(json|lock)$ - [F,L]
+    RewriteRule ^package\.(json|lock)$ - [F,L]
+    RewriteRule ^artisan$ - [F,L]
+
+    # Blokir akses langsung ke folder-folder internal Laravel demi keamanan
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor) - [F,L]
+
+    # Alihkan semua request lain secara otomatis ke folder public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
